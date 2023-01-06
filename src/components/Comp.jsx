@@ -1,12 +1,11 @@
 import React from 'react';
-import Child from './Child';
-
 
 class Comp extends React.Component {
   state = {
     name: "ooooop",
-    num: 12345,
-    isWorking: false
+    num: 18,
+    isWorking: false,
+    title: null,
   };
 
   componentDidMount() {
@@ -18,21 +17,32 @@ class Comp extends React.Component {
   componentWillUnmount() {
     console.log("Будет размонтирован");
   }
+
+  changeText = (event) => {
+    this.setState({ title: event.target.value });
+  };
+
   render() {
     return (
-      <div>
-        <input type="text" placeholder={this.state.name} onChange={() => { this.setState({ isWorking: true }) }} />
-        {this.state.num}
-        <button onClick={() => {
-          this.setState({ name: "boooms" })
-        }}>
+      <React.Fragment >
+        <button type="button" onClick={() => this.op.focus()}>
+          Фокус-покус
+        </button>
+        <input
+          type={'text'}
+          placeholder={this.state.name}
+          ref={(ref) => (this.op = ref)}
+          onChange={this.changeText}
+        />
+        <button
+          type="submit"
+          disabled={this.state.title === 'реакт' ? true : false}
+        >
           Жмяк
         </button>
-        <Child num={this.state.num} name={this.state.name} isWorking={this.state.isWorking} />
-      </div>
-    )
+      </React.Fragment>
+    );
   }
 }
-
 
 export default Comp;
